@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">IBIYEMI NATHANIEL</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Frontend Developer</h1>
+                <p>I create beautiful, responsive websites with modern technologies. Currently specializing in JavaScript frameworks and UI/UX design.</p>
+                <a href="#projects" class="btn">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Who am I?</h3>
+                    <p>I'm a passionate frontend developer with a background in computer science. I recently graduated from New Horizons ICT with an Advanced Frontend Certification. I love creating intuitive user experiences and solving complex problems with clean, efficient code.</p>
+                    <p>When I'm not coding, you can find me exploring new technologies, contributing to open source projects, or mentoring aspiring developers.</p>
+                </div>
+                <div class="skills">
+                    <h3>My Skills</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML/CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>React</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>UI/UX Design</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-grid">
+                <!-- Task Manager App -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Task Manager">
+                    </div>
+                    <div class="project-info">
+                        <h3>Task Manager App</h3>
+                        <p>A responsive task management application with local storage persistence.</p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>LocalStorage</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="btn" id="openTaskManager">Live Demo</button>
+                            <a href="#" class="view-code">View Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Budget Tracker App -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Budget Tracker">
+                    </div>
+                    <div class="project-info">
+                        <h3>Budget Tracker App</h3>
+                        <p>An expense tracking application that helps manage personal finances.</p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>LocalStorage</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="btn" id="openBudgetTracker">Live Demo</button>
+                            <a href="#" class="view-code">View Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce Dashboard -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="E-commerce Dashboard">
+                    </div>
+                    <div class="project-info">
+                        <h3>E-commerce Dashboard</h3>
+                        <p>A responsive dashboard for e-commerce analytics with interactive charts.</p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>Chart.js</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn">Live Demo</a>
+                            <a href="#" class="view-code">View Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Weather App -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Weather App">
+                    </div>
+                    <div class="project-info">
+                        <h3>Weather App</h3>
+                        <p>A weather application that displays current weather and forecast.</p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>API</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn">Live Demo</a>
+                            <a href="#" class="view-code">View Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">My Experience</h2>
+            <div class="timeline">
+                <!-- Experience 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>New Horizons ICT Resource Center</h3>
+                        <div class="timeline-date">2024 - Present</div>
+                        <p>Advanced Frontend Certification Course</p>
+                        <ul>
+                            <li>Mastered modern JavaScript frameworks</li>
+                            <li>Developed responsive web applications</li>
+                            <li>Learned UI/UX best practices</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Experience 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Web Development Intern</h3>
+                        <div class="timeline-date">Summer 2023</div>
+                        <p>Tech Solutions Inc.</p>
+                        <ul>
+                            <li>Assisted in developing company website</li>
+                            <li>Implemented responsive design features</li>
+                            <li>Collaborated with design team</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-form">
+                <div class="success-message" id="successMessage">
+                    Thank you! Your message has been sent successfully.
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="error" id="nameError">Please enter your name</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error" id="emailError">Please enter a valid email</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                        <div class="error" id="messageError">Please enter your message</div>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; <span id="year"></span> IBM PIXEL 👾. All rights reserved.</p>
+            <a href="#hero" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+        </div>
+    </footer>
+
+    <!-- Project Modals -->
+    <div class="modal" id="taskManagerModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="project-container">
+                <h2>Task Manager</h2>
+                <div class="task-app">
+                    <div class="task-input">
+                        <input type="text" id="taskInput" placeholder="Add a new task...">
+                        <button id="addTaskBtn" class="btn">Add Task</button>
+                    </div>
+                    <div id="taskList" class="task-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="budgetTrackerModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="project-container">
+                <h2>Budget Tracker</h2>
+                <div class="budget-app">
+                    <div class="balance-container">
+                        <h3>Your Balance</h3>
+                        <h1 id="balance">$0.00</h1>
+                        <div class="income-expense">
+                            <div class="income">
+                                <h4>Income</h4>
+                                <p id="income">$0.00</p>
+                            </div>
+                            <div class="expense">
+                                <h4>Expense</h4>
+                                <p id="expense">$0.00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transaction-form">
+                        <h3>Add New Transaction</h3>
+                        <form id="transactionForm">
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" id="description" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="number" id="amount" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Transaction Type</label>
+                                <select id="type" required>
+                                    <option value="income">Income</option>
+                                    <option value="expense">Expense</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn">Add Transaction</button>
+                        </form>
+                    </div>
+                    <div class="transactions">
+                        <h3>Transaction History</h3>
+                        <div id="transactionList" class="transaction-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
