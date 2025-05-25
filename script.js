@@ -3,259 +3,235 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('year').textContent = new Date().getFullYear();
     
     // Initialize projects
-    const taskManager = new TaskManager();
-    const budgetTracker = new BudgetTracker();
+    const rpsGame = new RPSGame();
+    const passwordGenerator = new PasswordGenerator();
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
     
     // Contact form validation
     const contactForm = document.getElementById('contactForm');
     const successMessage = document.getElementById('successMessage');
     
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        let isValid = true;
-        
-        // Validate name
-        const name = document.getElementById('name');
-        const nameError = document.getElementById('nameError');
-        if (name.value.trim() === '') {
-            nameError.style.display = 'block';
-            isValid = false;
-        } else {
-            nameError.style.display = 'none';
-        }
-        
-        // Validate email
-        const email = document.getElementById('email');
-        const emailError = document.getElementById('emailError');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email.value)) {
-            emailError.style.display = 'block';
-            isValid = false;
-        } else {
-            emailError.style.display = 'none';
-        }
-        
-        // Validate message
-        const message = document.getElementById('message');
-        const messageError = document.getElementById('messageError');
-        if (message.value.trim() === '') {
-            messageError.style.display = 'block';
-            isValid = false;
-        } else {
-            messageError.style.display = 'none';
-        }
-        
-        if (isValid) {
-            // In a real app, you would send the form data to a server here
-            contactForm.reset();
-            successMessage.style.display = 'block';
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 3000);
-        }
-    });
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Validate name
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            if (name.value.trim() === '') {
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+            
+            // Validate email
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+            
+            // Validate message
+            const message = document.getElementById('message');
+            const messageError = document.getElementById('messageError');
+            if (message.value.trim() === '') {
+                messageError.style.display = 'block';
+                isValid = false;
+            } else {
+                messageError.style.display = 'none';
+            }
+            
+            if (isValid) {
+                // In a real app, you would send the form data to a server here
+                contactForm.reset();
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+    }
     
     // Modal functionality
-    const taskManagerModal = document.getElementById('taskManagerModal');
-    const budgetTrackerModal = document.getElementById('budgetTrackerModal');
-    const openTaskManagerBtn = document.getElementById('openTaskManager');
-    const openBudgetTrackerBtn = document.getElementById('openBudgetTracker');
+    const rpsGameModal = document.getElementById('rpsGameModal');
+    const passwordGeneratorModal = document.getElementById('passwordGeneratorModal');
+    const openRPSGameBtn = document.getElementById('openRPSGame');
+    const openPasswordGeneratorBtn = document.getElementById('openPasswordGenerator');
     const closeModalBtns = document.querySelectorAll('.close-modal');
     
-    openTaskManagerBtn.addEventListener('click', () => {
-        taskManagerModal.style.display = 'block';
-    });
+    if (openRPSGameBtn) {
+        openRPSGameBtn.addEventListener('click', () => {
+            rpsGameModal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        });
+    }
     
-    openBudgetTrackerBtn.addEventListener('click', () => {
-        budgetTrackerModal.style.display = 'block';
-    });
+    if (openPasswordGeneratorBtn) {
+        openPasswordGeneratorBtn.addEventListener('click', () => {
+            passwordGeneratorModal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        });
+    }
     
     closeModalBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             this.closest('.modal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
         });
     });
     
     window.addEventListener('click', function(e) {
         if (e.target.classList.contains('modal')) {
             e.target.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
         }
     });
+    
+    // Back to top button functionality
+    const backToTopBtn = document.querySelector('.back-to-top');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+    }
 });
 
-// Task Manager Class
-class TaskManager {
+// Rock Paper Scissors Game Class
+class RPSGame {
     constructor() {
-        this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        this.taskId = this.tasks.length > 0 ? Math.max(...this.tasks.map(task => task.id)) + 1 : 1;
+        this.playerScore = 0;
+        this.computerScore = 0;
         this.init();
     }
 
     init() {
-        this.renderTasks();
-        document.getElementById('addTaskBtn').addEventListener('click', () => this.addTask());
-    }
+        const buttons = document.querySelectorAll("#rpsGameModal button[id]");
+        const resultEl = document.querySelector("#rpsGameModal #result");
+        const playerScoreEl = document.querySelector("#rpsGameModal #user-score");
+        const computerScoreEl = document.querySelector("#rpsGameModal #computer-score");
 
-    addTask() {
-        const taskInput = document.getElementById('taskInput');
-        const taskText = taskInput.value.trim();
-        
-        if (taskText) {
-            const newTask = {
-                id: this.taskId++,
-                text: taskText,
-                completed: false,
-                createdAt: new Date().toISOString()
-            };
-            
-            this.tasks.push(newTask);
-            this.saveTasks();
-            this.renderTasks();
-            taskInput.value = '';
+        if (buttons && resultEl && playerScoreEl && computerScoreEl) {
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const result = this.playRound(button.id, this.computerPlay());
+                    resultEl.textContent = result;
+                    playerScoreEl.textContent = this.playerScore;
+                    computerScoreEl.textContent = this.computerScore;
+                });
+            });
         }
     }
 
-    toggleTask(id) {
-        const task = this.tasks.find(task => task.id === id);
-        if (task) {
-            task.completed = !task.completed;
-            this.saveTasks();
-            this.renderTasks();
+    computerPlay() {
+        const choices = ["rock", "paper", "scissors"];
+        const randomChoice = Math.floor(Math.random() * choices.length);
+        return choices[randomChoice];
+    }
+
+    playRound(playerSelection, computerSelection) {
+        if (playerSelection === computerSelection) {
+            return "It's a tie!";
+        } else if (
+            (playerSelection === "rock" && computerSelection === "scissors") ||
+            (playerSelection === "paper" && computerSelection === "rock") ||
+            (playerSelection === "scissors" && computerSelection === "paper")
+        ) {
+            this.playerScore++;
+            return `You win! ${this.capitalizeFirstLetter(playerSelection)} beats ${this.capitalizeFirstLetter(computerSelection)}`;
+        } else {
+            this.computerScore++;
+            return `You lose! ${this.capitalizeFirstLetter(computerSelection)} beats ${this.capitalizeFirstLetter(playerSelection)}`;
         }
     }
 
-    deleteTask(id) {
-        this.tasks = this.tasks.filter(task => task.id !== id);
-        this.saveTasks();
-        this.renderTasks();
-    }
-
-    saveTasks() {
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
-    }
-
-    renderTasks() {
-        const taskList = document.getElementById('taskList');
-        taskList.innerHTML = '';
-
-        if (this.tasks.length === 0) {
-            taskList.innerHTML = '<p class="empty-message">No tasks yet. Add one above!</p>';
-            return;
-        }
-
-        this.tasks.forEach(task => {
-            const taskElement = document.createElement('div');
-            taskElement.className = `task ${task.completed ? 'completed' : ''}`;
-            taskElement.innerHTML = `
-                <div class="task-content">
-                    <input type="checkbox" ${task.completed ? 'checked' : ''} 
-                         onclick="taskManager.toggleTask(${task.id})">
-                    <span>${task.text}</span>
-                </div>
-                <button class="delete-btn" onclick="taskManager.deleteTask(${task.id})">
-                    <i class="fas fa-trash"></i>
-                </button>
-            `;
-            taskList.appendChild(taskElement);
-        });
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 }
 
-// Budget Tracker Class
-class BudgetTracker {
+// Password Generator Class
+class PasswordGenerator {
     constructor() {
-        this.transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        this.balance = 0;
-        this.income = 0;
-        this.expense = 0;
         this.init();
-        this.updateBalance();
     }
 
     init() {
-        document.getElementById('addTransactionBtn').addEventListener('click', () => this.addTransaction());
-        this.renderTransactions();
-    }
+        const btnEl = document.querySelector("#passwordGeneratorModal .btn");
+        const inputEl = document.querySelector("#passwordGeneratorModal #password-input");
+        const copyIconEl = document.querySelector("#passwordGeneratorModal .fa-copy");
+        const alertContainerEl = document.querySelector("#passwordGeneratorModal .alert-container");
 
-    addTransaction() {
-        const description = document.getElementById('description').value.trim();
-        const amount = parseFloat(document.getElementById('amount').value);
-        const type = document.getElementById('type').value;
+        if (btnEl && inputEl && copyIconEl && alertContainerEl) {
+            btnEl.addEventListener("click", () => {
+                this.createPassword();
+            });
 
-        if (description && !isNaN(amount)) {
-            const newTransaction = {
-                id: Date.now(),
-                description,
-                amount,
-                type,
-                date: new Date().toLocaleDateString()
-            };
-
-            this.transactions.push(newTransaction);
-            this.saveTransactions();
-            this.updateBalance();
-            this.renderTransactions();
-
-            // Clear form
-            document.getElementById('description').value = '';
-            document.getElementById('amount').value = '';
+            copyIconEl.addEventListener("click", () => {
+                this.copyPassword();
+                if (inputEl.value) {
+                    alertContainerEl.classList.remove("active");
+                    setTimeout(() => {
+                        alertContainerEl.classList.add("active");
+                    }, 2000);
+                }
+            });
         }
     }
 
-    deleteTransaction(id) {
-        this.transactions = this.transactions.filter(transaction => transaction.id !== id);
-        this.saveTransactions();
-        this.updateBalance();
-        this.renderTransactions();
-    }
+    createPassword() {
+        const chars = "0123456789abcdefghijklmnopqrstuvwxtz!@#$%^&*()_+?:{}[]ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const passwordLength = 14;
+        let password = "";
+        const inputEl = document.querySelector("#passwordGeneratorModal #password-input");
+        const alertContainerEl = document.querySelector("#passwordGeneratorModal .alert-container");
 
-    saveTransactions() {
-        localStorage.setItem('transactions', JSON.stringify(this.transactions));
-    }
-
-    updateBalance() {
-        this.income = this.transactions
-            .filter(transaction => transaction.type === 'income')
-            .reduce((sum, transaction) => sum + transaction.amount, 0);
-
-        this.expense = this.transactions
-            .filter(transaction => transaction.type === 'expense')
-            .reduce((sum, transaction) => sum + transaction.amount, 0);
-
-        this.balance = this.income - this.expense;
-
-        document.getElementById('balance').textContent = `$${this.balance.toFixed(2)}`;
-        document.getElementById('income').textContent = `$${this.income.toFixed(2)}`;
-        document.getElementById('expense').textContent = `$${this.expense.toFixed(2)}`;
-    }
-
-    renderTransactions() {
-        const transactionList = document.getElementById('transactionList');
-        transactionList.innerHTML = '';
-
-        if (this.transactions.length === 0) {
-            transactionList.innerHTML = '<p class="empty-message">No transactions yet. Add one above!</p>';
-            return;
+        for (let index = 0; index < passwordLength; index++) {
+            const randomNum = Math.floor(Math.random() * chars.length);
+            password += chars.substring(randomNum, randomNum + 1);
         }
+        inputEl.value = password;
+        alertContainerEl.innerText = "Password copied to clipboard!";
+    }
 
-        this.transactions.forEach(transaction => {
-            const transactionElement = document.createElement('div');
-            transactionElement.className = `transaction ${transaction.type}`;
-            transactionElement.innerHTML = `
-                <div>
-                    <p class="transaction-description">${transaction.description}</p>
-                    <small>${transaction.date}</small>
-                </div>
-                <div class="transaction-amount">$${transaction.amount.toFixed(2)}</div>
-                <button class="delete-transaction" onclick="budgetTracker.deleteTransaction(${transaction.id})">
-                    <i class="fas fa-trash"></i>
-                </button>
-            `;
-            transactionList.appendChild(transactionElement);
-        });
+    copyPassword() {
+        const inputEl = document.querySelector("#passwordGeneratorModal #password-input");
+        if (inputEl.value) {
+            inputEl.select();
+            inputEl.setSelectionRange(0, 9999);
+            navigator.clipboard.writeText(inputEl.value)
+                .then(() => {
+                    console.log("Password copied to clipboard");
+                })
+                .catch(err => {
+                    console.error("Failed to copy password: ", err);
+                });
+        }
     }
 }
-
-// Make instances available globally for onclick handlers
-const taskManager = new TaskManager();
-const budgetTracker = new BudgetTracker();
